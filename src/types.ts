@@ -30,7 +30,7 @@ export type WheelType = {
 export type PlayerType = {
 	crownHP: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 	bulwark: 0 | 1 | 2 | 3 | 4 | 5;
-	wheels: WheelType[];
+	wheels: [WheelType, WheelType, WheelType, WheelType, WheelType];
 	figurines?: [FigurineType, FigurineType];
 };
 

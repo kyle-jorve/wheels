@@ -17,7 +17,7 @@ const initialState: types.GameStateType = {
 	},
 };
 
-function getRandomWheels(wheels: types.PlayerType["wheels"] = [], isOpponent = false): types.PlayerType["wheels"] {
+function getRandomWheels(wheels: types.PlayerType["wheels"] | [] = [], isOpponent = false): types.PlayerType["wheels"] {
 	if (wheels.length) {
 		return wheels.map((wheel) => {
 			if (wheel.locked) return wheel;
@@ -26,14 +26,14 @@ function getRandomWheels(wheels: types.PlayerType["wheels"] = [], isOpponent = f
 				locked: false,
 				selected: wheel.selected,
 			};
-		});
+		}) as types.PlayerType["wheels"];
 	}
 
 	return Array.from({ length: 5 }, (_, index) => ({
 		tiles: [getRandomTile(), getRandomTile(), getRandomTile()],
 		locked: false,
 		selected: index === 0,
-	}));
+	})) as types.PlayerType["wheels"];
 }
 
 function getRandomTile(): types.WheelTileType {
@@ -90,7 +90,7 @@ function reducer(state: types.GameStateType, action: types.ReducerActionType): t
 							...wheel,
 							locked: lockWheel && wheel.locked ? false : lockWheel,
 						};
-					}),
+					}) as types.PlayerType["wheels"],
 				},
 				lockedWheels,
 			};
@@ -104,7 +104,7 @@ function reducer(state: types.GameStateType, action: types.ReducerActionType): t
 							...wheel,
 							selected: index === action.payload,
 						};
-					}),
+					}) as types.PlayerType["wheels"],
 				},
 			};
 		default:
